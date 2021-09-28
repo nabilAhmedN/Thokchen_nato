@@ -1,0 +1,36 @@
+﻿@model ThokchenNato.Models.ViewModels.CategoryVM
+
+@{
+    ViewBag.Title = "ViewCategory";
+}
+
+<h2 style="text-align:center">Category of Products</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            @foreach (var item in Model.Categories)
+            {
+                <div class="col-md-4 col-sm-12 float-left mt-2">
+                    <div class="card">
+                        <div class="card-body text-center" style="height: 200px">
+                            <img class="img-fluid cardImage" src="@Url.Content(item.PhotoURL)" alt="card image" style="height: 70px; width: 70px; border-radius: 50%">
+
+                            <h4 class="text-capitalize font-weight-bold" value="@item.CategoryName">@item.CategoryName</h4>
+                            
+                        </div>
+                        <div class="card-footer">
+                            <p class="text-center">
+                                
+                                <a href="/Product/ViewProducts?id=@item.Id" class="btn btn-primary btn-sm " name="Name" id=""><i class="">View</i></a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+

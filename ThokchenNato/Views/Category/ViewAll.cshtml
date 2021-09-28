@@ -1,0 +1,61 @@
+﻿<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+
+
+@model  ThokchenNato.Models.ViewModels.CategoryVM
+
+@{
+    ViewBag.Title = "ViewAll";
+}
+
+<h3 style="text-align:center;">Category List</h3>
+<br />
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SM"]
+    </div>
+}
+<p>
+    @Html.ActionLink("Add New", "AddCategory")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Sl No.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>Image</th>
+        <th>
+            Action
+        </th>
+    </tr>
+    @{int sl = 1; }
+    @foreach (var item in Model.Categories)
+    {
+        <tr>
+            <td>@(sl++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @*@if (item.PhotoBinary != null)
+        {
+            var base64 = Convert.ToBase64String(item.PhotoBinary);
+            var imgsrc = string.Format("data:image/png;base64,{0}", base64);
+            <img src='@imgsrc' style="max-width:100px;max-height:100px" id="@item.Id" / >
+        }*@
+
+                <img src="@Url.Content(item.PhotoURL)" style="margin:10px" height="50" width="50" id="imagePreview" />
+
+            </td>
+            <td>
+                <a href="/Category/Edit?id=@item.Id" class="btn btn-primary btn-sm" name="Name"><i class="fa fa-pencil fa-lg"></i></a>
+                <a class="btn btn-danger btn-sm" href="/Category/Delete?id=@item.Id" onclick="return confirm( 'Are you sure to delete this record ?')"><i class="fa fa-trash fa-lg"></i></a>
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,66 @@
+﻿<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+@model ThokchenNato.Models.ViewModels.ProductVM
+
+@{
+    ViewBag.Title = "ViewAll";
+}
+
+<h3 style="text-align:center;">Product List</h3>
+<br />
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SM"]
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Add New", "AddProduct")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount_Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhotoURL)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount_Unit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                <img src="@Url.Content(item.PhotoURL)" style="margin:10px" height="50" width="50" id="imagePreview" />
+            </td>
+            <td>
+                <a href="/Product/Edit?id=@item.Id" class="btn btn-primary btn-sm" name="Name"><i class="fa fa-pencil fa-lg"></i></a>
+                <a class="btn btn-danger btn-sm" href="/Product/Delete?id=@item.Id" onclick="return confirm( 'Are you sure to delete this record ?')"><i class="fa fa-trash fa-lg"></i></a>
+
+            </td>
+        </tr>
+    }
+
+</table>

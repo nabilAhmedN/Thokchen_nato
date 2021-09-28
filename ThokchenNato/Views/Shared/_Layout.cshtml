@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark m-0 p-0 fixed-top">
+        <div class="container">
+            <a href="/Product/Index" class="navbar-brand"><h3 class="text-uppercase"><span>Thokchen Nato?</span></h3></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="myMenu">
+                <ul class="navbar-nav">
+
+                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <li class="nav-item nav-link">@Html.ActionLink("Manage Category", "ViewAll", "Category")</li>
+                        <li class="nav-item nav-link">@Html.ActionLink("Manage Product", "ViewAll", "Product")</li>
+                        <li class="nav-item nav-link">@Html.ActionLink("Product Price", "ViewCategory", "Product")</li>
+                    }
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                    {
+                        <li class="nav-item nav-link">@Html.ActionLink("Product Price", "ViewCategory", "Product")</li>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li class="nav-item nav-link">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                        <li class="nav-item nav-link">@Html.ActionLink("Profile", "user-profile", "Account")</li>
+
+                    }
+                    else
+                    {
+                        if (ViewBag.Title == "Login")
+                        {
+                            <li class="nav-item nav-link active">@Html.ActionLink("Login", "Login", "Account")</li>
+                        }
+                        else
+                        {
+                            <li class="nav-item nav-link">@Html.ActionLink("Login", "Login", "Account")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
